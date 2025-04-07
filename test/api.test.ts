@@ -26,10 +26,10 @@ describe('Refranero', () => {
 
   // Get one refran
   test('Get one book', async () => {
-    const res = await request(app).get('/api/refranes/0');
+    const res = await request(app).get('/api/refranes/-1');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({
-      id: 0,
+      id: -1,
       spanish: 'Hola que tal?',
       english: 'Hey how you doing?',
       spanglish: 'Hello what about?',
