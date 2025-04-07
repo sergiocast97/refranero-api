@@ -24,6 +24,15 @@ describe('Refranero', () => {
     expect(res.body).toBeInstanceOf(Array);
   });
 
+  // Get number of refranes
+  test('Get all books', async () => {
+    const res = await request(app).get('/count');
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual({
+      count: expect.any(Number),
+    });
+  });
+
   // Get one refran
   test('Get one book', async () => {
     const res = await request(app).get('/-1');

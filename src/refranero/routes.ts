@@ -18,6 +18,11 @@ router.get('/all', (req: Request, res: Response) => {
   res.json(refranero);
 });
 
+// Get number of refranes
+router.get('/count', (req: Request, res: Response) => {
+  res.json({ count: refranero.length });
+});
+
 // Get refran by ID
 router.get('/:id', (req: Request, res: Response) => {
   // Find refran where IDs match
