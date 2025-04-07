@@ -8,7 +8,7 @@ interface Refran {
 export const refranero: Refran[] = [
   {
     id: 0,
-    spanish: 'Hola qué tal?',
+    spanish: 'Hola que tal?',
     english: 'Hey how you doing?',
     spanglish: 'Hello what about?',
   },

@@ -2,28 +2,46 @@ import request from 'supertest';
 
 import app from '../src/app';
 
-describe('GET /api/v1', () => {
-  it('responds with a json message', (done) => {
-    request(app)
-      .get('/api/v1')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(
-        200,
-        {
-          message: 'API - 👋🌎🌍🌏',
-        },
-        done
-      );
+describe('Refranero', () => {
+  // Get refranero
+  test('Get all books', async () => {
+    const res = await request(app).get('/api/refranes');
+    expect(res.status).toEqual(200);
+    expect(res.body).toBeInstanceOf(Array);
   });
-});
 
-describe('GET /api/v1/emojis', () => {
-  it('responds with a json message', (done) => {
-    request(app)
-      .get('/api/v1/emojis')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, ['😀', '😳', '🙄'], done);
+  // Get random refran
+  test('Get one random book', async () => {
+    const res = await request(app).get('/api/refranes/random');
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual(
+      expect.objectContaining({
+        id: expect.any(Number),
+        spanish: expect.any(String),
+        english: expect.any(String),
+        spanglish: expect.any(String),
+      })
+    );
+  });
+
+  // Get one refran
+  test('Get one book', async () => {
+    const res = await request(app).get('/api/refranes/0');
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual({
+      id: 0,
+      spanish: 'Hola que tal?',
+      english: 'Hey how you doing?',
+      spanglish: 'Hello what about?',
+    });
+  });
+
+  // Fail to get one refran
+  test('Get one missing book', async () => {
+    const res = await request(app).get('/api/refranes/99999');
+    expect(res.status).toEqual(404);
+    expect(res.body).toEqual({
+      message: 'Refrán not found',
+    });
   });
 });

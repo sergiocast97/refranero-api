@@ -1,29 +1,28 @@
 import request from 'supertest';
 
 import app from '../src/app';
-
-describe('app', () => {
-  it('responds with a not found message', (done) => {
-    request(app)
-      .get('/what-is-this-even')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(404, done);
+describe('Sanity tests', () => {
+  // Hello world
+  test('Hello world', async () => {
+    const res = await request(app).get('/');
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual({
+      message: 'Hello world',
+    });
   });
-});
 
-describe('GET /', () => {
-  it('responds with a json message', (done) => {
-    request(app)
-      .get('/')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(
-        200,
-        {
-          message: 'Hello world',
-        },
-        done
-      );
+  // Ping pong
+  test('Ping pong', async () => {
+    const res = await request(app).get('/ping');
+    expect(res.status).toEqual(200);
+    expect(res.body).toEqual({
+      message: 'pong',
+    });
+  });
+
+  // 404 Page
+  test('404', async () => {
+    const res = await request(app).get('/whatever');
+    expect(res.status).toEqual(404);
   });
 });
