@@ -9,7 +9,7 @@
     "build": "tsc",
     "start:dist": "node dist/src/index.js",
     "lint": "eslint --fix src test",
-    "test": "jest",
+    "test": "jest --coverage",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
