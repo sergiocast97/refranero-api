@@ -10,7 +10,8 @@
     "start:dist": "node dist/src/index.js",
     "lint": "eslint --fix src test",
     "test": "jest --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "Sergio Castillo",
