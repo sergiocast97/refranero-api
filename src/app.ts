@@ -15,15 +15,12 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Hello world' });
-});
-
+// Health check
 app.get('/ping', (req: Request, res: Response) => {
   res.json({ message: 'pong' });
 });
 
-app.use('/api/', api);
+app.use('/', api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

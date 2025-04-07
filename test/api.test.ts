@@ -3,16 +3,9 @@ import request from 'supertest';
 import app from '../src/app';
 
 describe('Refranero', () => {
-  // Get refranero
-  test('Get all books', async () => {
-    const res = await request(app).get('/api/refranes');
-    expect(res.status).toEqual(200);
-    expect(res.body).toBeInstanceOf(Array);
-  });
-
   // Get random refran
   test('Get one random book', async () => {
-    const res = await request(app).get('/api/refranes/random');
+    const res = await request(app).get('/');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual(
       expect.objectContaining({
@@ -24,9 +17,16 @@ describe('Refranero', () => {
     );
   });
 
+  // Get refranero
+  test('Get all books', async () => {
+    const res = await request(app).get('/all');
+    expect(res.status).toEqual(200);
+    expect(res.body).toBeInstanceOf(Array);
+  });
+
   // Get one refran
   test('Get one book', async () => {
-    const res = await request(app).get('/api/refranes/-1');
+    const res = await request(app).get('/-1');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({
       id: -1,
@@ -38,7 +38,7 @@ describe('Refranero', () => {
 
   // Fail to get one refran
   test('Get one missing book', async () => {
-    const res = await request(app).get('/api/refranes/99999');
+    const res = await request(app).get('/99999');
     expect(res.status).toEqual(404);
     expect(res.body).toEqual({
       message: 'Refrán not found',
