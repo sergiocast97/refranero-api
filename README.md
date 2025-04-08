@@ -1,59 +1,184 @@
-# Express API Starter with Typescript
+# Refranero API
 
-How to use this template:
+The Refranero API provides access to a collection of Spanish "refranes", with a word-by-word translation to English and a more appropriate English equivalent.
+The Spanish "refranero" is a beautiful treasury of nuggets of wisdom to guide our lives, and sometimes, interpreting them doesn't quite cut it. Here, you'll find refranes, proverbs and expressions from across a multitude of Spanish-speaking countries.
 
-```sh
-npx create-express-api --typescript --directory my-api-name
-```
+The inspiration from this comes from the pains of being bilingual. My brain has lost the ability to distinguish between English and Spanish, so more often than not, I subconsciously use word-by-word translations in either language, creating amusing conversations for the people around me.
 
-Includes API Server utilities:
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup](#setup)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
 
-* [morgan](https://www.npmjs.com/package/morgan)
-  * HTTP request logger middleware for node.js
-* [helmet](https://www.npmjs.com/package/helmet)
-  * Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
-* [dotenv](https://www.npmjs.com/package/dotenv)
-  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`
-* [cors](https://www.npmjs.com/package/cors)
-  * CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+## Features
+- Retrieve a random proverb.
+- Get all proverbs in the collection.
+- Search for a proverb by its ID.
+- Count the total number of proverbs.
+- Built with TypeScript for type safety and scalability.
 
-Development utilities:
-
-* [typescript](https://www.npmjs.com/package/typescript)
-  * TypeScript is a language for application-scale JavaScript.
-* [ts-node](https://www.npmjs.com/package/ts-node)
-  * TypeScript execution and REPL for node.js, with source map and native ESM support.
-* [nodemon](https://www.npmjs.com/package/nodemon)
-  * nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-* [eslint](https://www.npmjs.com/package/eslint)
-  * ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-* [typescript-eslint](https://typescript-eslint.io/)
-  * Tooling which enables ESLint to support TypeScript.
-* [jest](https://www.npmjs.com/package/jest)
-  * Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
-* [supertest](https://www.npmjs.com/package/supertest)
-  * HTTP assertions made easy via superagent.
+## Technologies Used
+- [Node.js](https://nodejs.org/) - JavaScript runtime for building the API.
+- [Express.js](https://expressjs.com/) - Web framework for handling routes and middleware.
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript for better development experience.
+- [Jest](https://jestjs.io/) - Testing framework for unit and integration tests.
+- [Supertest](https://www.npmjs.com/package/supertest) - HTTP assertions for testing API endpoints.
+- [dotenv](https://www.npmjs.com/package/dotenv) - Environment variable management.
+- [helmet](https://www.npmjs.com/package/helmet) - Security middleware for HTTP headers.
+- [morgan](https://www.npmjs.com/package/morgan) - HTTP request logger.
+- [cors](https://www.npmjs.com/package/cors) - Middleware for enabling Cross-Origin Resource Sharing.
 
 ## Setup
 
-```
-npm install
-```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/sergiocast97/refranero-api.git
+   cd refranero-api
+   ```
 
-## Lint
+2. Install dependencies:
+   ```sh
+   pnpm install
+   ```
 
-```
-npm run lint
-```
+3. Create a `.env` file in the root directory and add any required environment variables:
+   ```env
+   PORT=3000
+   NODE_ENV=development
+   ```
 
-## Test
+4. Build the project (if using TypeScript):
+   ```sh
+   pnpm build
+   ```
 
-```
-npm run test
-```
+5. Start the server:
+   ```sh
+   pnpm start
+   ```
+
+6. For development mode with hot-reloading:
+   ```sh
+   pnpm dev
+   ```
+
+The API will be available at `http://localhost:3000`.
+
+## Usage
+
+You can interact with the API using tools like [Postman](https://www.postman.com/), curl, or any HTTP client.
+
+## API Endpoints
+
+### `GET /`
+- **Description**: Retrieve a random proverb.
+- **Response**:
+  ```json
+  {
+    "id": 5,
+    "spanish": "Pan para hoy, hambre para mañana",
+    "spanglish": "Bread for today, hunger for tomorrow",
+    "english": "Laugh today, cry tomorrow"
+  }
+  ```
+
+### `GET /all`
+- **Description**: Retrieve all proverbs in the collection.
+- **Response**:
+  ```json
+  [
+    {
+      "id": 5,
+      "spanish": "Pan para hoy, hambre para mañana",
+      "spanglish": "Bread for today, hunger for tomorrow",
+      "english": "Laugh today, cry tomorrow"
+    },
+    {
+      "id": 6,
+      "spanish": "Más sabe el diablo por viejo que por diablo",
+      "spanglish": "The devil knows more for being old than for being the devil",
+      "english": "With age comes wisdom"
+    },
+  ]
+  ```
+
+### `GET /:id`
+- **Description**: Retrieve a proverb by its ID.
+- **Parameters**:
+  - `id` (integer): The ID of the proverb.
+- **Response**:
+  ```json
+  {
+      "id": 5,
+      "spanish": "Pan para hoy, hambre para mañana",
+      "spanglish": "Bread for today, hunger for tomorrow",
+      "english": "Laugh today, cry tomorrow"
+  }
+  ```
+
+### `GET /count`
+- **Description**: Get the total number of proverbs.
+- **Response**:
+  ```json
+  {
+    "count": 21
+  }
+  ```
 
 ## Development
 
+### Run Tests
+Run unit and integration tests:
+```sh
+pnpm test
 ```
-npm run dev
+
+### Lint Code
+Lint and fix code issues:
+```sh
+pnpm lint
 ```
+
+### Type Checking
+Check for TypeScript errors:
+```sh
+pnpm typecheck
+```
+
+### Development Mode
+Start the server in development mode with hot-reloading:
+```sh
+pnpm dev
+```
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```sh
+   git checkout -b feature-name
+   ```
+3. Make your changes and commit them:
+   ```sh
+   git commit -m "Add feature-name"
+   ```
+4. Push to your branch:
+   ```sh
+   git push origin feature-name
+   ```
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+(Rebuild in Go coming soon ✌🏼)
+
+Made with ♥️ by Sergio Castillo
